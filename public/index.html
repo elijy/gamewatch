@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Include JQuery -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- Include 'script.js' -->
+		<script src="script.js"></script>
+		<!-- Include Bootstrap -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<!-- Padding for the nav bar -->
+		<style>body { padding-top: 70px; }</style>
+	</head>
+	<body>
+		<!-- All Bootstrap needs to be wrapped in container -->
+		<div class=container>
+			<!-- Navigation Bar -->
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+  				<div class="container-fluid">
+    				<div class="navbar-header">
+    				<a class="navbar-brand active" href="#"><span class="glyphicon glyphicon-home"></span> Game Watch</a>
+   					</div>
+   				 	<div>
+      					<ul class="nav navbar-nav">
+    	    				<li onclick= 'writeList()'><a href="#mine"><span class="glyphicon glyphicon-user"></span>  My Games</a></li>
+       						<li><a href="#search"><span class="glyphicon glyphicon-search"></span>  Search For Games</a></li> 
+       		 				<li><a href="#view"><span class="glyphicon glyphicon-eye-open"></span> See What Others Are Watching</a></li> 
+       		 				<li onclick='logout()'><a href="#"><span class="glyphicon glyphicon-fire"></span> Log Out</a></li> 
+     					 </ul>
+    				</div>
+  				</div>
+			</nav>
+			<!-- Jumbotron (Page Title) -->
+			<div class="jumbotron">
+				<div class="container">
+					<h1 class="text-center standout"><strong><span class="label label-info">Game Watch</span></strong></h1>
+				</div>
+			</div>
+			<!-- All Log In Page -->
+			<div class="text-center" id=log>
+				<h1><small>Log In</small></h1>
+				<form class="form-inline">
+					<div class="input-group">
+  						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+  						<input type='text' class="form-control" id='user' placeholder='Username'></input>
+					</div>
+					<div class="input-group">
+  						<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+						<input type='password' class="form-control" id='pass' placeholder='Password'></input>
+					</div>
+					<button id='ck' class="btn btn-info btn-lg">Log In</button>
+				</form>
+				<!-- Not a user in the system -->
+				<div id="invalid" class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-warning-sign"></span> 
+					<strong>  Invalid Username and Password  </strong><span class="glyphicon glyphicon-warning-sign"></span>
+				</div>
+				<!-- Signup to be a user -->
+				<div id=signup>
+					<h2><small>New To Gamewatch?</small></h2>
+					<button id='sign' class="btn btn-primary">Sign Up</button>
+				</div>	
+			</div>
+			<!-- Main Page View -->
+			<div id=view>
+				<br><br><br>
+				<!-- Games being watched by all users, including public comments -->
+				<h2> Games Being Watched </h2>
+				<table class="table table-striped" id=allDisplay>
+					<th><span class="glyphicon glyphicon-home"></span>  Home Team</th>
+					<th><span class="glyphicon glyphicon-plane"></span>  Away Team</th>
+			<th><span class="glyphicon glyphicon-calendar"></span>  Date</th>
+			<th><span class="glyphicon glyphicon-user"></span>  User Watching</th>
+			<th><span class="glyphicon glyphicon-pencil"></span>  Public Comment</th>
+			<th></th>
+		</table>
+				<!-- Search engine to look up a game at 'fantasyfootball.com/api' -->
+				<div id=search>	
+			<br><br><br>
+			<div class ="bg-info">
+			<h2 id=sub>Add A Game To My Watchlist</h2>
+			<button onclick='footBall()' class="btn btn-info btn-lg" >Search Games  <span class="glyphicon glyphicon-search"></span></button>
+			<div id=drop></div>
+			<br>
+			<table class="table table-striped" id=display></table>
+			<br>
+			<div id=addAll></div>
+		</div>
+	</div>
+			<br><br><br>
+			<!-- Specific users games, including private comments -->
+		<div id=mine class="bg-warning">
+			<br><br><br>
+			<button onclick='writeList()' class='btn btn-warning btn-lg btn-block'> My Watchlist  <span class='glyphicon glyphicon-chevron-down'></span></button>
+			<!-- Hidden div for adding comments, private and public -->
+			<div class="text-center bg-info" id=comments>
+				<br><br>
+				<div id=pcom></div>
+				<div id=ent></div>
+			</div>
+			<br><br><br>
+		<!-- Table where user specific games are written to -->
+		<table class="table table-striped" id=yours>						
+		</table>
+		</div>
+	</div>
+			<!-- Sign up to be a user Page -->
+			<div id=signPage class='text-center'>
+			<h1><small>Enter Your Information</small></h1>
+			<form class="form-inline">
+				<div class="input-group">
+  					<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+  					<input type='text' class="form-control" id='newuser' placeholder='Username'></input>
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+					<input type='password' class="form-control" id='newpass' placeholder='Password'></input>
+				</div>
+				<button id='newU' class="btn btn-info btn-lg">Create New User</button>
+			</form>	
+		</div>
+			<!-- Div for succesful add into user system -->
+			<div id=successAdd class='text-center'>
+			<h1>Welcome to Gamewatch!</h1>
+			<h1><small>Your user account was created successfully</small></h1>
+			<button id='newLogIn' class="btn btn-info btn-success">Log In</button>
+		</div>
+			<!-- Invalid entry for User -->
+			<div id="invalidNew" class="alert alert-danger text-center" role="alert"><span class="glyphicon glyphicon-exclamation-sign"></span> 
+			<strong>  This Username Already Exists  </strong><span class="glyphicon glyphicon-exclamation-sign"></span>
+		</div>
+		</div>
+	</body>
+</html>
